@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaitlyn Martin — IAM Portfolio</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --ink: #0D1220;
+    --ink-2: #131A2C;
+    --ink-3: #1B2438;
+    --line: #2A3450;
+    --paper: #F3F1E9;
+    --paper-dim: #DAD6C6;
+    --teal: #47D8BE;
+    --amber: #E7A23D;
+    --slate: #8A94AF;
+    --white: #F5F6F8;
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--ink);
+    color: var(--white);
+    font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.55;
+  }
+  h1,h2,h3,h4{ font-family: 'Space Grotesk', sans-serif; margin: 0; }
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+  a{ color: inherit; }
+  img{ max-width: 100%; }
+
+  /* ---------- layout shell ---------- */
+  .wrap{ max-width: 980px; margin: 0 auto; padding: 0 28px; }
+  section{ padding: 88px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type{ border-bottom: none; }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width: 22px; height: 1px;
+    background: var(--teal);
+    display: inline-block;
+  }
+
+  /* ---------- nav ---------- */
+  header.nav{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(13,18,32,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  header.nav .wrap{
+    display:flex; align-items:center; justify-content: space-between;
+    padding-top: 16px; padding-bottom: 16px;
+  }
+  .brandmark{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; letter-spacing: 0.08em;
+    color: var(--slate);
+  }
+  .brandmark strong{ color: var(--white); }
+  nav.links{ display:flex; gap: 26px; font-size: 14px; }
+  nav.links a{ text-decoration: none; color: var(--slate); transition: color .15s; }
+  nav.links a:hover{ color: var(--teal); }
+  .nav-resume{
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--white) !important;
+  }
+  .nav-resume:hover{ border-color: var(--teal); color: var(--teal) !important; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding-top: 76px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .hero h1{ font-size: 40px; line-height: 1.15; letter-spacing: -0.01em; }
+  .hero .role{ color: var(--teal); font-size: 19px; font-weight: 600; margin-top: 10px; }
+  .hero p.lede{ color: var(--slate); margin-top: 18px; max-width: 46ch; font-size: 15.5px; }
+  .hero .cta-row{ display:flex; gap: 14px; margin-top: 30px; flex-wrap: wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 12px 20px; border-radius: 999px;
+    text-decoration:none; font-size: 14px; font-weight: 600;
+  }
+  .btn-primary{ background: var(--teal); color: var(--ink); }
+  .btn-ghost{ border: 1px solid var(--line); color: var(--white); }
+  .btn-primary:hover{ opacity: .88; }
+  .btn-ghost:hover{ border-color: var(--teal); color: var(--teal); }
+
+  .stat-row{ display:flex; gap: 30px; margin-top: 34px; }
+  .stat b{ display:block; font-family:'Space Grotesk',sans-serif; font-size: 24px; }
+  .stat span{ color: var(--slate); font-size: 12.5px; font-family:'JetBrains Mono',monospace; text-transform: uppercase; letter-spacing: .06em; }
+
+  /* ---------- badge (signature element) ---------- */
+  .badge-stage{ display:flex; justify-content:center; }
+  .badge{
+    position: relative;
+    width: 320px;
+    aspect-ratio: 1.586/1;
+    background: linear-gradient(160deg, var(--paper) 0%, var(--paper-dim) 100%);
+    border-radius: 18px;
+    color: var(--ink);
+    padding: 22px 24px;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.55), 0 0 0 1px rgba(0,0,0,0.06);
+    overflow: hidden;
+    transform: rotate(-2deg);
+  }
+  .badge::after{
+    content:"";
+    position:absolute; left:0; right:0; height: 70px;
+    top: -80px;
+    background: linear-gradient(180deg, rgba(71,216,190,0) 0%, rgba(71,216,190,0.55) 50%, rgba(71,216,190,0) 100%);
+    animation: scan 4.5s ease-in-out infinite;
+  }
+  @keyframes scan{
+    0%{ top: -80px; }
+    55%{ top: 100%; }
+    100%{ top: 100%; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .badge::after{ animation: none; display:none; }
+  }
+  .badge-top{ display:flex; justify-content:space-between; align-items:flex-start; }
+  .badge-label{ font-family:'JetBrains Mono',monospace; font-size: 10px; letter-spacing: .12em; color: #55604F; text-transform:uppercase; }
+  .badge-id{ font-family:'JetBrains Mono',monospace; font-size: 10px; color: #6B7566; }
+  .badge-avatar{
+    width: 46px; height: 46px; border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size: 16px;
+    margin-top: 14px;
+  }
+  .badge-name{ font-size: 21px; font-weight: 700; margin-top: 14px; }
+  .badge-role{ font-size: 12px; color: #4B5545; margin-top: 2px; }
+  .badge-bottom{ display:flex; justify-content:space-between; align-items:flex-end; margin-top: 18px; }
+  .badge-stripe{ display:flex; gap:3px; }
+  .badge-stripe span{ width:3px; height: 20px; background: #1C2318; opacity:.55; }
+  .badge-stripe span:nth-child(3n){ opacity: .2; }
+  .pill{
+    font-family:'JetBrains Mono',monospace;
+    font-size: 10.5px; letter-spacing:.04em;
+    padding: 5px 10px; border-radius: 999px;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .pill::before{ content:""; width:6px; height:6px; border-radius:50%; }
+  .pill-progress{ background: rgba(231,162,61,0.16); color:#8A5A17; }
+  .pill-progress::before{ background: var(--amber); }
+  .pill-granted{ background: rgba(71,216,190,0.16); color:#166B5C; }
+  .pill-granted::before{ background: var(--teal); }
+
+  /* dark-surface pill variants for use on ink background */
+  .pill-progress-dark{ background: rgba(231,162,61,0.12); color: var(--amber); }
+  .pill-progress-dark::before{ background: var(--amber); }
+  .pill-granted-dark{ background: rgba(71,216,190,0.12); color: var(--teal); }
+  .pill-granted-dark::before{ background: var(--teal); }
+
+  /* ---------- about / clearance panel ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.4fr 1fr; gap: 48px; }
+  .about-grid p{ color: var(--slate); font-size: 15.5px; max-width: 62ch; }
+  .about-grid p + p{ margin-top: 14px; }
+  .clearance{
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    height: fit-content;
+  }
+  .clearance h4{ font-size: 13px; text-transform:uppercase; letter-spacing:.08em; color: var(--slate); font-family:'JetBrains Mono',monospace; margin-bottom: 16px; font-weight:500; }
+  .clearance dl{ margin:0; }
+  .clearance .row{ display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 13.5px; }
+  .clearance .row:last-child{ border-bottom:none; }
+  .clearance .row dt{ color: var(--slate); }
+  .clearance .row dd{ margin:0; text-align:right; }
+
+  /* ---------- certifications grid ---------- */
+  .cert-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 36px; }
+  .cert-card{
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+  }
+  .cert-card .top{ display:flex; justify-content:space-between; align-items:flex-start; gap: 10px; }
+  .cert-card h3{ font-size: 15.5px; font-weight: 600; }
+  .cert-card .provider{ color: var(--slate); font-size: 12.5px; margin-top: 4px; font-family:'JetBrains Mono',monospace; }
+  .cert-card .desc{ color: var(--slate); font-size: 13.5px; margin-top: 12px; }
+  .progressbar{ height: 5px; background: var(--ink-3); border-radius: 999px; margin-top: 14px; overflow:hidden; }
+  .progressbar > div{ height:100%; background: var(--amber); border-radius: 999px; }
+
+  /* ---------- log entries (labs) ---------- */
+  .log{ margin-top: 30px; display:flex; flex-direction:column; gap: 12px; }
+  details.log-entry{
+    background: var(--ink-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 4px 22px;
+  }
+  details.log-entry summary{
+    list-style:none; cursor:pointer;
+    padding: 16px 0;
+    display:flex; align-items:center; justify-content:space-between; gap: 16px;
+  }
+  details.log-entry summary::-webkit-details-marker{ display:none; }
+  .log-title{ display:flex; align-items:center; gap: 12px; }
+  .log-index{ font-family:'JetBrains Mono',monospace; color: var(--slate); font-size: 12px; }
+  .log-name{ font-weight: 600; font-size: 15px; }
+  .chevron{ color: var(--slate); transition: transform .2s; font-size: 13px; }
+  details[open] .chevron{ transform: rotate(90deg); }
+  .log-body{ padding: 4px 0 22px; border-top: 1px solid var(--line); margin-top: 2px; }
+  .log-body h5{ font-family:'JetBrains Mono',monospace; font-size: 11.5px; text-transform:uppercase; letter-spacing:.08em; color: var(--teal); margin-top: 18px; }
+  .log-body h5:first-child{ margin-top: 18px; }
+  .log-body p{ color: var(--slate); font-size: 14px; margin: 6px 0 0; }
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin-top: 14px; }
+  .tag{ font-family:'JetBrains Mono',monospace; font-size: 11px; color: var(--slate); border: 1px solid var(--line); padding: 4px 9px; border-radius: 999px; }
+
+  /* ---------- updates feed (blog) ---------- */
+  .updates{ margin-top: 34px; display:flex; flex-direction:column; gap: 0; }
+  .update{
+    padding: 26px 0;
+    border-top: 1px solid var(--line);
+    display:grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+  }
+  .updates .update:first-child{ border-top: none; }
+  .update-date{
+    font-family:'JetBrains Mono',monospace;
+    font-size: 12px;
+    color: var(--teal);
+    padding-top: 2px;
+  }
+  .update-title{ font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .update-body{ color: var(--slate); font-size: 14px; max-width: 62ch; }
+  .update-tags{ margin-top: 12px; }
+
+  /* ---------- footer ---------- */
+  footer{ padding: 60px 0 80px; }
+  .foot-grid{ display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap: 24px; }
+  .foot-links{ display:flex; gap: 18px; flex-wrap:wrap; }
+  .foot-links a{ text-decoration:none; border: 1px solid var(--line); padding: 10px 16px; border-radius: 999px; font-size: 13.5px; }
+  .foot-links a:hover{ border-color: var(--teal); color: var(--teal); }
+  .foot-note{ color: var(--slate); font-size: 12.5px; font-family:'JetBrains Mono',monospace; }
+
+  @media (max-width: 820px){
+    .hero{ grid-template-columns: 1fr; }
+    .badge-stage{ order: -1; }
+    .about-grid{ grid-template-columns: 1fr; }
+    .cert-grid{ grid-template-columns: 1fr; }
+    nav.links{ display:none; }
+    .update{ grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <div class="brandmark">IAM://<strong>kaitlyn-martin</strong></div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#certs">Certifications</a>
+      <a href="#labs">Labs</a>
+      <a href="#experience">Experience</a>
+      <a href="#updates">Updates</a>
+    </nav>
+    <a class="nav-resume" href="#" title="Replace href with your hosted resume link">Resume ↗</a>
+  </div>
+</header>
+
+<section class="hero wrap" id="top">
+  <div>
+    <div class="eyebrow">Identity &amp; Access Management</div>
+    <h1>Kaitlyn Martin</h1>
+    <div class="role">Aspiring IAM Analyst — Azure AD · Identity Governance · Zero Trust</div>
+    <p class="lede">
+      Enterprise Technology Integration graduate (Penn State) pivoting into Identity &amp; Access Management,
+      building Azure AD and identity governance skills through structured certification and hands-on labs —
+      documented here as I go.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#labs">View the labs</a>
+      <a class="btn btn-ghost" href="mailto:your.email@example.com">Get in touch</a>
+    </div>
+    <div class="stat-row">
+      <div class="stat"><b>3</b><span>Certs in progress</span></div>
+      <div class="stat"><b>8</b><span>Planned IAM labs</span></div>
+      <div class="stat"><b>1</b><span>Cyber internship</span></div>
+    </div>
+  </div>
+  <div class="badge-stage">
+    <div class="badge">
+      <div class="badge-top">
+        <div>
+          <div class="badge-label">Identity Verification</div>
+          <div class="badge-id">ID: IAM-2026-001</div>
+        </div>
+        <span class="pill pill-progress">Provisioning</span>
+      </div>
+      <div class="badge-avatar">KM</div>
+      <div class="badge-name">Kaitlyn Martin</div>
+      <div class="badge-role">Candidate — IAM Analyst</div>
+      <div class="badge-bottom">
+        <div class="badge-stripe">
+          <span></span><span></span><span></span><span></span><span></span>
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span class="badge-id">Issued 2026</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap about-grid">
+    <div>
+      <div class="eyebrow">About</div>
+      <h2 style="font-size:26px; margin-bottom:16px;">Why identity, and why now</h2>
+      <p>
+        I've always been drawn to how large organizations run on invisible systems — the technology stack
+        behind the scenes. Studying Enterprise Technology Integration with a cybersecurity minor, and then
+        interning on Deloitte's Risk &amp; Financial Advisory Cyber team, showed me the piece I actually care
+        about most: who gets access to what, and how you prove it's really them. That's Identity &amp; Access
+        Management.
+      </p>
+      <p>
+        I'm now building deep, hands-on IAM and Azure AD skills through structured certification work and a
+        public portfolio, while applying everything I already know about enterprise systems, governance,
+        and clear communication. Every lab below is real work in my own Azure AD tenant — not just a
+        certificate.
+      </p>
+    </div>
+    <div class="clearance">
+      <h4>Status</h4>
+      <dl>
+        <div class="row"><dt>Focus</dt><dd>IAM · Azure AD · Zero Trust</dd></div>
+        <div class="row"><dt>Background</dt><dd>Enterprise Systems, Cybersecurity</dd></div>
+        <div class="row"><dt>Currently</dt><dd>Certifying &amp; lab-building</dd></div>
+        <div class="row"><dt>Based in</dt><dd>[City, State]</dd></div>
+        <div class="row"><dt>Open to</dt><dd>Entry-level IAM / Cloud Security</dd></div>
+        <div class="row"><dt>Contact</dt><dd>your.email@example.com</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section id="certs">
+  <div class="wrap">
+    <div class="eyebrow">Access Grants</div>
+    <h2 style="font-size:26px;">Certifications</h2>
+    <div class="cert-grid">
+
+      <div class="cert-card">
+        <div class="top">
+          <div>
+            <h3>Microsoft Cybersecurity Analyst Professional Certificate</h3>
+            <div class="provider">Coursera · 9 courses</div>
+          </div>
+          <span class="pill pill-progress-dark">In Progress</span>
+        </div>
+        <p class="desc">Networking, operating systems, threat vectors, incident response, Defender XDR, SIEM/SOAR, identity &amp; access solutions, compliance, SC-900 exam prep.</p>
+        <div class="progressbar"><div style="width:20%"></div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="top">
+          <div>
+            <h3>Microsoft Azure Security Tools Specialization</h3>
+            <div class="provider">Coursera · 5 courses</div>
+          </div>
+          <span class="pill pill-progress-dark">In Progress</span>
+        </div>
+        <p class="desc">Azure AD, Conditional Access, Defender for Cloud, identity governance, cloud security policy, pen-testing fundamentals.</p>
+        <div class="progressbar"><div style="width:20%"></div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="top">
+          <div>
+            <h3>Identity Access Management &amp; Authentication</h3>
+            <div class="provider">Coursera · 6 modules</div>
+          </div>
+          <span class="pill pill-progress-dark">In Progress</span>
+        </div>
+        <p class="desc">IAM fundamentals, identity lifecycle, federation, MFA, cryptography, passwordless authentication, identity risk.</p>
+        <div class="progressbar"><div style="width:16%"></div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="top">
+          <div>
+            <h3>Make Agentic AI Work for You</h3>
+            <div class="provider">IBM SkillsBuild</div>
+          </div>
+          <span class="pill pill-progress-dark">In Progress</span>
+        </div>
+        <p class="desc">Applied agentic AI concepts and workflow — digital credential on completion.</p>
+        <div class="progressbar"><div style="width:10%"></div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="top">
+          <div><h3>Introduction to Artificial Intelligence</h3><div class="provider">IBM · Coursera</div></div>
+          <span class="pill pill-granted-dark">Complete</span>
+        </div>
+        <p class="desc">Foundational AI literacy certificate.</p>
+        <div class="progressbar"><div style="width:100%"></div></div>
+      </div>
+
+      <div class="cert-card">
+        <div class="top">
+          <div><h3>Introduction to Software Engineering</h3><div class="provider">IBM · Coursera</div></div>
+          <span class="pill pill-granted-dark">Complete</span>
+        </div>
+        <p class="desc">Foundational software engineering practices certificate.</p>
+        <div class="progressbar"><div style="width:100%"></div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="labs">
+  <div class="wrap">
+    <div class="eyebrow">Field Log</div>
+    <h2 style="font-size:26px;">IAM Labs</h2>
+    <p style="color:var(--slate); max-width:60ch; margin-top:10px; font-size:14.5px;">
+      Hands-on work in my own Azure AD (Entra ID) tenant. Click an entry for the write-up. Update the status,
+      screenshots, and outcome fields as each lab is finished — unfinished ones stay visible on purpose.
+    </p>
+
+    <div class="log">
+
+      <details class="log-entry" open>
+        <summary>
+          <div class="log-title">
+            <span class="log-index">01</span>
+            <span class="log-name">MFA &amp; SSO Setup in Azure AD</span>
+          </div>
+          <span class="pill pill-progress-dark">In Progress</span>
+          <span class="chevron">▶</span>
+        </summary>
+        <div class="log-body">
+          <h5>Objective</h5>
+          <p>Configure multi-factor authentication and single sign-on for a test tenant, replicating a baseline enterprise identity security posture.</p>
+          <h5>Approach</h5>
+          <p>[Describe your tenant setup, MFA method(s) enabled, and SSO app(s) configured. Add screenshots here.]</p>
+          <h5>Outcome</h5>
+          <p>[What this demonstrates — e.g., reduced credential-based attack surface, user experience trade-offs.]</p>
+          <div class="tag-row">
+            <span class="tag">Azure AD</span><span class="tag">MFA</span><span class="tag">SSO</span>
+          </div>
+        </div>
+      </details>
+
+      <!--
+        TEMPLATE — copy the <details class="log-entry">...</details> block above,
+        paste it here, and edit the index number, title, status pill, and the
+        Objective/Approach/Outcome text for your next lab.
+      -->
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow">Verified History</div>
+    <h2 style="font-size:26px;">Professional &amp; Applied Projects</h2>
+    <div class="log" style="margin-top:30px;">
+
+      <details class="log-entry">
+        <summary>
+          <div class="log-title">
+            <span class="log-index">→</span>
+            <span class="log-name">Risk &amp; Financial Advisory Cyber Intern, Deloitte</span>
+          </div>
+          <span class="pill pill-granted-dark">Jun–Jul 2025</span>
+          <span class="chevron">▶</span>
+        </summary>
+        <div class="log-body">
+          <p>Led a 5-person team researching Microsoft Purview and Power Automate solutions to resolve identity, credential, and access management (ICAM) challenges for an enterprise client. Delivered a strategic presentation and report to Deloitte senior managers, and built a scalability-feasibility matrix to guide technology adoption decisions.</p>
+          <div class="tag-row"><span class="tag">ICAM</span><span class="tag">Microsoft Purview</span><span class="tag">Client Strategy</span></div>
+        </div>
+      </details>
+
+      <details class="log-entry">
+        <summary>
+          <div class="log-title">
+            <span class="log-index">→</span>
+            <span class="log-name">Advanced Enterprise Integration: Technology &amp; Applications</span>
+          </div>
+          <span class="pill pill-granted-dark">Jan–May 2026</span>
+          <span class="chevron">▶</span>
+        </summary>
+        <div class="log-body">
+          <p>Designed an SAP-inspired system architecture integrating ERP, MES, CRM, CAD, sensor networks, and resource planning into a unified enterprise data platform, including a conceptual data lakehouse enforcing governance across manufacturing, supply chain, and customer operations.</p>
+          <div class="tag-row"><span class="tag">Enterprise Architecture</span><span class="tag">Data Governance</span></div>
+        </div>
+      </details>
+
+      <details class="log-entry">
+        <summary>
+          <div class="log-title">
+            <span class="log-index">→</span>
+            <span class="log-name">Enterprise Analytics</span>
+          </div>
+          <span class="pill pill-granted-dark">Jan–May 2026</span>
+          <span class="chevron">▶</span>
+        </summary>
+        <div class="log-body">
+          <p>Aggregated and transformed multi-source datasets into Tableau to define and track KPIs, building interactive executive dashboards covering revenue, cost, and operational metrics.</p>
+          <div class="tag-row"><span class="tag">Tableau</span><span class="tag">KPI Modeling</span></div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<section id="updates">
+  <div class="wrap">
+    <div class="eyebrow">Live Feed</div>
+    <h2 style="font-size:26px;">Updates</h2>
+    <p style="color:var(--slate); max-width:60ch; margin-top:10px; font-size:14.5px;">
+      Short, dated notes on what I'm learning and building right now. Newest at the top —
+      this is the easiest section to keep current, so it's the best signal that this page
+      is actively maintained.
+    </p>
+
+    <div class="updates">
+
+      <div class="update">
+        <div class="update-date">JUL 2026</div>
+        <div>
+          <div class="update-title">Started the Microsoft Cybersecurity Analyst Professional Certificate</div>
+          <div class="update-body">[Write 2–3 sentences on what you're studying, one thing that surprised you, or a concept you had to re-read twice. That's it — it doesn't need to be polished.]</div>
+          <div class="update-tags tag-row"><span class="tag">Certification</span></div>
+        </div>
+      </div>
+
+      <!--
+        TEMPLATE — copy the <div class="update">...</div> block above and paste
+        a new one directly under this comment (new posts go on top, above older
+        ones) each time you want to add an update. Just edit the month/year,
+        title, and body text.
+      -->
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="brandmark" style="margin-bottom:10px;">IAM://<strong>kaitlyn-martin</strong></div>
+      <div class="foot-note">Built and updated as certifications and labs progress.</div>
+    </div>
+    <div class="foot-links">
+      <a href="mailto:your.email@example.com">Email</a>
+      <a href="https://www.linkedin.com/in/kaitmartin/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a href="#" title="Replace with your GitHub URL">GitHub ↗</a>
+      <a href="#" title="Replace with your hosted resume link">Resume ↗</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
